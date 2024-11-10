@@ -10,7 +10,7 @@ function InputField({ label, type = "text", value, onChange, placeholder }) {
                 onChange={onChange}
                 placeholder={placeholder}
                 required
-                className="p-3 text-lg rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                className="py-2 px-4 text-lg rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500"
             />
         </div>
     );
