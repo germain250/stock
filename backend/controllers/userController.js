@@ -43,7 +43,7 @@ const Login = async (req, res) => {
         const accessToken = jwt.generateAccessToken(user);
         const refreshToken = await jwt.generateRefreshToken(user);
 
-        res.status(200).json({ message: 'Login successful', accessToken, refreshToken });
+        res.status(200).json({ user, accessToken, refreshToken });
     } catch (error) {
         res.json({ message: error.message });
     }

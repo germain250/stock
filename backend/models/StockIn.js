@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Product = require('./Product'); // Import Product model
+const Product = require('./Product');
 
 const stockInSchema = new mongoose.Schema({
     product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true },
@@ -8,7 +8,6 @@ const stockInSchema = new mongoose.Schema({
     date: { type: Date, default: Date.now }
 });
 
-// Pre-save hook for creating or updating StockIn with transaction
 stockInSchema.pre('save', async function (next) {
     const session = await mongoose.startSession();
     session.startTransaction();
@@ -36,7 +35,6 @@ stockInSchema.pre('save', async function (next) {
     }
 });
 
-// Pre-remove hook for deleting StockIn with transaction
 stockInSchema.pre('remove', async function (next) {
     const session = await mongoose.startSession();
     session.startTransaction();

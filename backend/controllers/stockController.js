@@ -1,20 +1,18 @@
-// stockController.js
 const eventBus = require('../services/eventBus');
 const StockIn = require('../models/StockIn');
 const StockOut = require('../models/StockOut');
 const Product = require('../models/Product');
 
-// Stock In Creation
 async function createStockIn(req, res) {
     try {
         const { productId, quantity, userId } = req.body;
         const stockIn = new StockIn({ product: productId, quantity, addedBy: userId });
         
-        await stockIn.save(); // Pre-save hook adjusts stock
+        await stockIn.save();
         const product = await Product.findById(productId);
 
         eventBus.emit('stockInCreate', { product: product.name, quantity, user: userId });
-        checkLowStock(product); // Emit lowStock event if necessary
+        checkLowStock(product);
 
         res.status(201).json({ message: 'Stock in created successfully', stockIn });
     } catch (error) {
@@ -22,7 +20,6 @@ async function createStockIn(req, res) {
     }
 }
 
-// Stock In Update
 async function updateStockIn(req, res) {
     try {
         const { stockInId } = req.params;
@@ -41,7 +38,6 @@ async function updateStockIn(req, res) {
     }
 }
 
-// Stock In Deletion
 async function deleteStockIn(req, res) {
     try {
         const { stockInId } = req.params;
@@ -59,13 +55,12 @@ async function deleteStockIn(req, res) {
     }
 }
 
-// Stock Out Creation
 async function createStockOut(req, res) {
     try {
         const { productId, quantity, userId } = req.body;
         const stockOut = new StockOut({ product: productId, quantity, removedBy: userId });
 
-        await stockOut.save(); // Pre-save hook adjusts stock
+        await stockOut.save();
         const product = await Product.findById(productId);
 
         eventBus.emit('stockOutCreate', { product: product.name, quantity, user: userId });
@@ -77,7 +72,6 @@ async function createStockOut(req, res) {
     }
 }
 
-// Stock Out Update
 async function updateStockOut(req, res) {
     try {
         const { stockOutId } = req.params;
@@ -96,7 +90,6 @@ async function updateStockOut(req, res) {
     }
 }
 
-// Stock Out Deletion
 async function deleteStockOut(req, res) {
     try {
         const { stockOutId } = req.params;
@@ -114,7 +107,6 @@ async function deleteStockOut(req, res) {
     }
 }
 
-// Helper function to emit lowStock event
 function checkLowStock(product) {
     if (product.stockQuantity < 10) {
         eventBus.emit('lowStock', product);
