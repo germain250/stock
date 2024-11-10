@@ -1,5 +1,9 @@
+// Login.jsx
 import { useState } from 'react';
 import { useAuthContext } from '../context/AuthContext';
+import FormCard from '../components/FormCard';
+import InputField from '../components/InputField';
+import Button from '../components/Button';
 
 function Login() {
     const { login } = useAuthContext();
@@ -12,36 +16,32 @@ function Login() {
         try {
             await login({ email, password });
             setError(null);
-            // Redirect or show success message
         } catch (err) {
-            setError('Invalid login credentials.',err);
+            setError('Invalid login credentials.', err);
         }
     };
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '50px' }}>
-            <h2>Login</h2>
-            <form onSubmit={handleSubmit} style={{ width: '300px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                <input
+        <FormCard title="Login">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                <InputField
+                    label="Username or Email"
                     type="email"
-                    placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    required
-                    style={{ padding: '10px', fontSize: '16px' }}
+                    placeholder="Enter your email"
                 />
-                <input
+                <InputField
+                    label="Password"
                     type="password"
-                    placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    required
-                    style={{ padding: '10px', fontSize: '16px' }}
+                    placeholder="Enter your password"
                 />
-                {error && <div style={{ color: 'red' }}>{error}</div>}
-                <button type="submit" style={{ padding: '10px', fontSize: '16px', cursor: 'pointer' }}>Login</button>
+                {error && <div className="text-red-500 text-sm">{error}</div>}
+                <Button type="submit">Login</Button>
             </form>
-        </div>
+        </FormCard>
     );
 }
 

@@ -1,8 +1,13 @@
 // tailwind.config.js
 export const content = [
-  "./src/**/*.{js,jsx,ts,tsx}", // Adjust this path based on your project's structure
+  "./src/**/*.{js,jsx,ts,tsx}",
 ];
 export const theme = {
-  extend: {},
+  extend: {
+    colors: {
+      'deep-green': '#006400',
+      'secondary': '',
+    },
+  },
 };
 export const plugins = [];
