@@ -1,6 +1,6 @@
 # Stock XY - Stock Management System
 
-Welcome to the **Stock XY** project! This is a stock management system built with Node.js and MongoDB on the backend and a frontend built with Vue.js. It allows for managing products, stock-in, stock-out operations, and more.
+Welcome to the **Stock XY** project! This stock management system is built using **Node.js** and **MongoDB** for the backend, with a **Vue.js** frontend. The system handles product management, stock-in, stock-out operations, and more.
 
 ## Table of Contents
 
@@ -14,148 +14,189 @@ Welcome to the **Stock XY** project! This is a stock management system built wit
 
 ## Installation
 
-To get started with the Stock XY project, follow these steps to set up both the **backend** and **frontend**.
+To get started with **Stock XY**, follow these steps to set up both the **backend** and **frontend**.
 
 ### Backend Setup
 
 1. **Clone the repository:**
 
-   ```bash
-   git clone https://github.com/germain250/stock_xy.git
+    ```bash
+    git clone https://github.com/germain250/stock_xy.git
+    ```
 
-    Navigate to the backend directory:
+2. Navigate to the backend directory:
 
-cd stock_xy/backend
+    ```bash
+    cd stock_xy/backend
+    ```
 
-Install backend dependencies:
+3. Install the backend dependencies:
 
-npm install
+    ```bash
+    npm install
+    ```
 
-Start the backend server using nodemon:
+4. Start the backend server using **nodemon**:
 
+    ```bash
     npx nodemon index.js
+    ```
 
-    The backend API will be running on http://localhost:5000 (or another port if configured).
+    The backend API will be running on `http://localhost:5000` (or another port if configured).
 
-Frontend Setup
+### Frontend Setup
 
-    Navigate to the frontend directory:
+1. Navigate to the frontend directory:
 
-cd ../frontend
+    ```bash
+    cd ../frontend
+    ```
 
-Install frontend dependencies:
+2. Install the frontend dependencies:
 
-npm install
+    ```bash
+    npm install
+    ```
 
-Start the frontend server:
+3. Start the frontend server:
 
+    ```bash
     npm run dev
+    ```
 
-    The frontend will be running on http://localhost:3000.
+    The frontend will be running on `http://localhost:3000`.
 
-Git Workflow
+---
 
-To ensure smooth collaboration, follow this Git workflow when contributing to the project:
-1. Fork the Repository
+## Git Workflow
 
-If you're looking to contribute, start by forking the repository to your own GitHub account.
-2. Clone Your Fork
+To contribute to the project, follow this Git workflow for smooth collaboration:
 
-Clone your forked repository locally:
+1. **Fork the Repository:**  
+   Start by forking the repository to your own GitHub account.
 
-git clone https://github.com/your-username/stock_xy.git
+2. **Clone Your Fork:**  
+   Clone your forked repository locally:
 
-Navigate to the project directory:
+    ```bash
+    git clone https://github.com/your-username/stock_xy.git
+    ```
 
-cd stock_xy
+   Navigate to the project directory:
 
-3. Create a New Branch
+    ```bash
+    cd stock_xy
+    ```
 
-Before making any changes, create a new branch to work on:
+3. **Create a New Branch:**  
+   Before making any changes, create a new branch:
 
-git checkout -b feature/your-feature-name
+    ```bash
+    git checkout -b feature/your-feature-name
+    ```
 
-Replace your-feature-name with a descriptive name for your branch (e.g., feature/product-management).
-4. Make Changes
+4. **Make Changes:**  
+   Make the necessary changes to the codebase.
 
-Make your changes to the codebase as needed.
-5. Commit Your Changes
+5. **Commit Your Changes:**  
+   After making your changes, commit them:
 
-After making your changes, commit them to your branch:
+    ```bash
+    git add .
+    git commit -m "Add a clear description of the changes"
+    ```
 
-git add .
-git commit -m "Add a clear description of the changes"
+6. **Push Changes:**  
+   Push your changes to your fork:
 
-6. Push Changes
+    ```bash
+    git push origin feature/your-feature-name
+    ```
 
-Push your changes to your fork:
+7. **Create a Pull Request:**  
+   Go to your repository on GitHub and create a pull request (PR) to merge your branch into the main branch of the original repository.
 
-git push origin feature/your-feature-name
+8. **Review & Merge:**  
+   Once your pull request is reviewed, it will be merged into the main branch.
 
-7. Create a Pull Request
+9. **Sync with the Original Repository:**  
+   After your PR is merged, update your fork with the latest changes from the main repository:
 
-Go to your repository on GitHub and create a pull request (PR) to merge your branch into the main branch of the original repository.
-8. Review & Merge
+    ```bash
+    git fetch upstream
+    git checkout main
+    git merge upstream/main
+    ```
 
-Once your pull request is reviewed, it will be merged into the main branch.
-9. Sync with the Original Repository
+---
 
-After your PR is merged, make sure your fork is up to date with the main repository by fetching the latest changes:
+## Running the Application
 
-git fetch upstream
-git checkout main
-git merge upstream/main
+Follow these steps to run both the **backend** and **frontend** servers locally:
 
-Running the Application
+### Running the Backend
 
-To run both the backend and frontend servers locally, follow these steps:
-Running the Backend
+1. Navigate to the backend directory (if not already there):
 
-    Navigate to the backend directory (if not already there):
+    ```bash
+    cd backend
+    ```
 
-cd backend
+2. Install the backend dependencies:
 
-Install the backend dependencies:
+    ```bash
+    npm install
+    ```
 
-npm install
+3. Start the backend server:
 
-Start the backend server:
-
+    ```bash
     npx nodemon index.js
+    ```
 
-    The backend will be accessible at http://localhost:5000.
+    The backend will be accessible at `http://localhost:5000`.
 
-Running the Frontend
+### Running the Frontend
 
-    Navigate to the frontend directory (if not already there):
+1. Navigate to the frontend directory (if not already there):
 
-cd frontend
+    ```bash
+    cd frontend
+    ```
 
-Install the frontend dependencies:
+2. Install the frontend dependencies:
 
-npm install
+    ```bash
+    npm install
+    ```
 
-Start the frontend server:
+3. Start the frontend server:
 
+    ```bash
     npm run dev
+    ```
 
-    The frontend will be accessible at http://localhost:3000.
+    The frontend will be accessible at `http://localhost:3000`.
 
-Contributing
+---
 
-We welcome contributions to the Stock XY project! If you'd like to contribute, please follow the Git workflow outlined above and ensure that your changes are well-tested. You can contribute by:
+## Contributing
 
-    Reporting bugs or issues.
-    Adding new features.
-    Improving the documentation.
-    Refactoring code.
+We welcome contributions to **Stock XY**! If you'd like to contribute, please follow the Git workflow outlined above and ensure that your changes are well-tested. You can contribute by:
 
-Please ensure that all pull requests adhere to the following guidelines:
+- Reporting bugs or issues.
+- Adding new features.
+- Improving the documentation.
+- Refactoring code.
 
-    Provide a clear and descriptive commit message.
-    Include tests for new features or bug fixes where possible.
-    Follow the existing code style and structure.
+Please adhere to the following guidelines for pull requests:
 
-License
+- Provide a clear and descriptive commit message.
+- Include tests for new features or bug fixes where possible.
+- Follow the existing code style and structure.
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+---
+
+## License
+
+This project is licensed under the **MIT License**. See the LICENSE file for more details.
