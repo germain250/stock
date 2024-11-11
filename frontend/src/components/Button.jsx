@@ -4,7 +4,7 @@ function Button({ children, onClick, type = "button" }) {
         <button
             type={type}
             onClick={onClick}
-            className="p-3 text-lg font-semibold text-white bg-deep-green rounded-md hover:bg-green-700 transition duration-200"
+            className="p-3 text-md font-semibold text-white bg-deep-green rounded-md hover:bg-green-700 transition duration-200"
         >
             {children}
         </button>

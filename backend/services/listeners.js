@@ -38,4 +38,10 @@ eventBus.on('lowStock', async (product) => {
     }
 });
 
+eventBus.on('productCreated', async(data)=>{
+    const notification = await Notification.create({
+        message: `New product created: ${data.name}.`
+    })
+})
+
 module.exports = { initializeSocket };

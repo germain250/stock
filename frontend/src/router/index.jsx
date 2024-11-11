@@ -9,7 +9,7 @@ import Profile from '../pages/Profile';
 import ErrorPage from '../pages/ErrorPage';
 
 const ProtectedRoute = ({ children, allowedRoles }) => {
-    const { user, isLoading } = useAuthContext(); // Ensure `isLoading` matches the state in AuthContext
+    const { user, isLoading } = useAuthContext();
 
     if (isLoading) return <div>Loading...</div>;
 

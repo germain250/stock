@@ -23,7 +23,7 @@ export function AuthProvider({ children }) {
   const login = async ({ email, password }) => {
     const currentUser = await loginUser({ email, password });
     setUser(currentUser);
-    navigate('/dashboard'); // Or redirect to appropriate page
+    navigate('/admin');
   };
 
   const logout = async () => {

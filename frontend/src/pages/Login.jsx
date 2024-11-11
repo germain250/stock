@@ -3,6 +3,7 @@ import { useAuthContext } from '../context/AuthContext';
 import FormCard from '../components/FormCard';
 import InputField from '../components/InputField';
 import Button from '../components/Button';
+import authService from '../services/authService'; // Ensure you import authService
 
 function Login() {
     const { login } = useAuthContext();
@@ -10,14 +11,22 @@ function Login() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
     const [isSignup, setIsSignup] = useState(false);
+    const [username, setUsername] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await login({ email, password });
-            setError(null);
+            if (isSignup) {
+                const userData = { username, email, password };
+                await authService.registerUser(userData);
+                setError(null);
+            } else {
+                await login({ email, password });
+                setError(null);
+            }
         } catch (err) {
-            setError('Invalid login credentials.', err);
+            console.log(err)
+            setError(isSignup ? 'Registration failed. Please try again.' : 'Invalid login credentials.');
         }
     };
 
@@ -32,6 +41,15 @@ function Login() {
                 <div className="flex-1 transition-all duration-500 transform">
                     <FormCard title={isSignup ? "Sign Up" : "Login"} className="w-full max-w-sm h-[500px] flex flex-col justify-center">
                         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                            {isSignup && (
+                                <InputField
+                                    label="Username"
+                                    type="text"
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
+                                    placeholder="Enter username"
+                                />
+                            )}
                             <InputField
                                 label="Email"
                                 type="email"
@@ -44,7 +62,7 @@ function Login() {
                                 type="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                placeholder="Enter your password"
+                                placeholder="Enter password"
                             />
                             {isSignup && (
                                 <InputField
@@ -52,7 +70,7 @@ function Login() {
                                     type="password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    placeholder="Confirm your password"
+                                    placeholder="Confirm password"
                                 />
                             )}
                             {error && <div className="text-red-500 text-sm">{error}</div>}
@@ -69,12 +87,12 @@ function Login() {
                             Stock XY
                         </span>
                     </h1>
-                    <p className="text-gray-700 text-lg font-medium">
+                    <p className="text-gray-700 text-md font-medium">
                         {isSignup ? "Already have an account?" : "Don’t have an account?"}
                     </p>
                     <button
                         onClick={toggleMode}
-                        className="text-lg font-semibold text-green-700 transition duration-200 transform hover:scale-105 hover:text-green-800"
+                        className="text-sm font-semibold text-green-700 transition duration-200 transform hover:scale-105 hover:text-green-800"
                     >
                         {isSignup ? "Login" : "Create Account"}
                     </button>

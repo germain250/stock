@@ -1,4 +1,6 @@
 const Product = require("../models/Product");
+const eventBus = require('../services/eventBus');
+
 
 const getProductByIdMiddleWare = async(req,res, next) => {
     let product;
@@ -37,6 +39,7 @@ const addProduct = async (req, res) => {
     );
     try {
         const newProduct = await product.save();
+        eventBus.emit('productCreated', newProduct);
         res.status(201).json(newProduct);
     } catch (error) {
         res.status(400).json({message: error.message});

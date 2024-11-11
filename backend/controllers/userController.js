@@ -6,13 +6,12 @@ const Token = require('../models/Token')
 
 
 const Register = async(req,res) =>{
-    const {username,email,password,role} = req.body;
+    const {username,email,password} = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = new User({
         username: username,
         email: email,
         password: hashedPassword,
-        role: role,
     });
     try {
         const newUser = await user.save();

@@ -1,8 +1,8 @@
+import NavBar from "../components/NavBar";
 function AdminDashboard() {
     return (
         <div>
-            <h1>Admin Dashboard</h1>
-            <p>Welcome to the Admin Dashboard!</p>
+            <NavBar />
         </div>
     );
 }
