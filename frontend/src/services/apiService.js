@@ -1,5 +1,6 @@
 import axios from "./axios";
 
+
 //product crud operations
 export const getAllProducts = async () => {
     try {
@@ -89,5 +90,43 @@ export const deleteCategory = async (categoryId) => {
         return response.data;
     } catch (error) {
         throw error.response?.data || error.message;
+    }
+}
+
+//stockin and stockout operations
+
+export const createStockIn = async (data) =>{
+    try {
+        const response = await axios.post("/stock/stock-in/", data);
+        return response.data;
+    } catch (error) {
+        throw error.response?.data || error.message;
+    }
+}
+
+export const createStockOut = async (data) =>{
+    try {
+        const response = await axios.post("/stock/stock-out/", data);
+        return response.data;
+    } catch (error) {
+        throw error.response?.data || error.message;
+    }
+}
+
+export const getAllLogs = async () =>{
+    try {
+        const response = await axios.get("/report")
+        return response.data;
+    } catch (error) {
+        console.log(error)        
+    }
+}
+
+export const getStockOverview = async () =>{
+    try {
+        const response = await axios.get("/stock/overview")
+        return response.data;
+    } catch (error) {
+        console.log(error)        
     }
 }

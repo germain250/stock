@@ -9,49 +9,34 @@ const stockInSchema = new mongoose.Schema({
 });
 
 stockInSchema.pre('save', async function (next) {
-    const session = await mongoose.startSession();
-    session.startTransaction();
-
     try {
-        const product = await Product.findById(this.product).session(session);
+        const product = await Product.findById(this.product);
         if (!product) throw new Error('Product not found');
 
         if (this.isNew) {
             product.stockQuantity += this.quantity;
         } else {
-            const original = await this.constructor.findById(this._id).session(session);
+            const original = await this.constructor.findById(this._id);
             const quantityDifference = this.quantity - original.quantity;
             product.stockQuantity += quantityDifference;
         }
 
-        await product.save({ session });
-        await session.commitTransaction();
-        session.endSession();
+        await product.save();
         next();
     } catch (error) {
-        await session.abortTransaction();
-        session.endSession();
         next(error);
     }
 });
 
 stockInSchema.pre('remove', async function (next) {
-    const session = await mongoose.startSession();
-    session.startTransaction();
-
     try {
-        const product = await Product.findById(this.product).session(session);
+        const product = await Product.findById(this.product);
         if (!product) throw new Error('Product not found');
 
         product.stockQuantity -= this.quantity;
-        await product.save({ session });
-
-        await session.commitTransaction();
-        session.endSession();
+        await product.save();
         next();
     } catch (error) {
-        await session.abortTransaction();
-        session.endSession();
         next(error);
     }
 });

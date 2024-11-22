@@ -6,8 +6,8 @@ const authService = {
         const { user, accessToken, refreshToken } = response.data;
         
         localStorage.setItem('user', JSON.stringify(user));
-        localStorage.setItem('accessToken', accessToken);
-        localStorage.setItem('refreshToken', refreshToken);
+        localStorage.setItem('accessToken', JSON.stringify(accessToken));
+        localStorage.setItem('refreshToken', JSON.stringify(refreshToken));
         
         return user;
     },

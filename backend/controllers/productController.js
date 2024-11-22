@@ -17,7 +17,7 @@ const getProductByIdMiddleWare = async(req,res, next) => {
 }
 const getProducts = async (req, res) => {
     try {
-        const products = await Product.find();
+        const products = await Product.find({createdBy: req.user.id});
         res.status(201).json(products);
     } catch (error) {
         res.status(500).json({ message: error.message });        
@@ -30,10 +30,11 @@ const addProduct = async (req, res) => {
     const product = new Product(
         {
             name: req.body.name,
-            sku: req.body.sku.toUpperCase(),            
+            sku: req.body.sku.toUpperCase(),
             description: req.body.description,
             price: req.body.price,
             category: req.body.category,
+            createdBy: req.user.id,
             stockQuantity: req.body.stockQuantity
         }
     );
@@ -73,11 +74,13 @@ const updateProduct = async (req, res) => {
     }
 }
 const deleteProduct = async (req, res) => {
-    try {
-        await res.product.deleteOne();
-        res.json({message: "Product deleted successfully"});
-    } catch (error) {
-        res.status(500).json({message: error.message});
+    if(req.user.id == res.product.createdBy){
+        try {
+            await res.product.deleteOne();
+            res.json({message: "Product deleted successfully"});
+        } catch (error) {
+            res.status(500).json({message: error.message});
+        }
     }
 }
 

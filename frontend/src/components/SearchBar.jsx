@@ -16,7 +16,7 @@ const SearchBar = ({ onSearch }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="flex items-center max-w-sm mx-auto">
+        <form onSubmit={handleSubmit} className="flex items-center max-w-sm">
             <label htmlFor="simple-search" className="sr-only">Search</label>
             <div className="relative w-full">
                 <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -28,7 +28,7 @@ const SearchBar = ({ onSearch }) => {
                     type="text"
                     id="simple-search"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
-                    placeholder="Search branch name..."
+                    placeholder="Search for a product..."
                     value={query}
                     onChange={handleInputChange}
                     required

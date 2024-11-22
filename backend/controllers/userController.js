@@ -42,7 +42,7 @@ const Login = async (req, res) => {
         const accessToken = jwt.generateAccessToken(user);
         const refreshToken = await jwt.generateRefreshToken(user);
 
-        res.status(200).json({ user, accessToken, refreshToken });
+        res.status(200).json({ user, accessToken, refreshToken }); 
     } catch (error) {
         res.json({ message: error.message });
     }
@@ -87,6 +87,17 @@ const getAllUsers = async(req,res) =>{
     }
 }
 
+const getSingleUser = async(req,res) =>{
+    const { id } = req.params;
+    try {
+        const user = await User.findById(id).select('-password');
+        if (!user) throw new Error('User not found');
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching user', error });
+    }
+}
+
 const updateUser = async(req,res) =>{
     const { id } = req.params;
     const updates = req.body;
@@ -118,5 +129,6 @@ module.exports = {
     Logout,
     getAllUsers,
     updateUser,
-    deleteUser
+    deleteUser,
+    getSingleUser
 }

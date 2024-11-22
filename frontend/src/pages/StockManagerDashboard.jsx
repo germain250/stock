@@ -1,8 +1,8 @@
+import Table from "../components/ProductTable";
 function StockManagerDashboard() {
     return (
         <div>
-            <h1>Stock Manager Dashboard</h1>
-            <p>Welcome to the Stock Manager Dashboard!</p>
+            <Table />
         </div>
     );
 }

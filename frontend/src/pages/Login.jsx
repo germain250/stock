@@ -3,7 +3,7 @@ import { useAuthContext } from '../context/AuthContext';
 import FormCard from '../components/FormCard';
 import InputField from '../components/InputField';
 import Button from '../components/Button';
-import authService from '../services/authService'; // Ensure you import authService
+import authService from '../services/authService';
 
 function Login() {
     const { login } = useAuthContext();

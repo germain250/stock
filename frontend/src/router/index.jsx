@@ -2,11 +2,12 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuthContext } from '../context/AuthContext';
 import PropTypes from 'prop-types';
 import AdminDashboard from '../pages/AdminDashboard';
-import StockManagerDashboard from '../pages/StockManagerDashboard';
 import SalesDashboard from '../pages/SalesDashboard';
 import Login from '../pages/Login';
 import Profile from '../pages/Profile';
 import ErrorPage from '../pages/ErrorPage';
+import AddProduct from '../pages/AddProduct';
+import StockManagerDashboard from '../pages/StockManagerDashboard';
 
 const ProtectedRoute = ({ children, allowedRoles }) => {
     const { user, isLoading } = useAuthContext();
@@ -35,7 +36,7 @@ function AppRouter() {
             <Route path="/login" element={<Login />} />
             <Route path="/error" element={<ErrorPage />} />
             
-            <Route path="/admin" element={
+            <Route path="/" element={
                 <ProtectedRoute allowedRoles={['admin']}>
                     <AdminDashboard />
                 </ProtectedRoute>
@@ -44,6 +45,12 @@ function AppRouter() {
             <Route path="/stock-manager" element={
                 <ProtectedRoute allowedRoles={['admin', 'stock_manager']}>
                     <StockManagerDashboard />
+                </ProtectedRoute>
+            } />
+
+            <Route path="/add-product" element={
+                <ProtectedRoute allowedRoles={['admin', 'stock_manager',]}>
+                    <AddProduct />
                 </ProtectedRoute>
             } />
 
@@ -59,7 +66,7 @@ function AppRouter() {
                 </ProtectedRoute>
             } />
 
-            <Route path="/" element={<Navigate to="/login" />} />
+            <Route path="/" element={<Navigate to="/" />} />
         </Routes>
     );
 }

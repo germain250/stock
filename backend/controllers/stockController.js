@@ -5,7 +5,7 @@ const Product = require('../models/Product');
 
 async function createStockIn(req, res) {
     try {
-        const { productId, quantity, userId } = req.body;
+        const {productId, quantity, userId } = req.body;
         const stockIn = new StockIn({ product: productId, quantity, addedBy: userId });
         
         await stockIn.save();
@@ -57,7 +57,7 @@ async function deleteStockIn(req, res) {
 
 async function createStockOut(req, res) {
     try {
-        const { productId, quantity, userId } = req.body;
+        const { productId,quantity, userId } = req.body;
         const stockOut = new StockOut({ product: productId, quantity, removedBy: userId });
 
         await stockOut.save();

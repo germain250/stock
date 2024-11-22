@@ -22,7 +22,8 @@ const getCategoryById = async(req,res) => {
 const createCategory = async(req,res) => {
     const category = new Category({
         name: req.body.name,
-        description: req.body.description
+        description: req.body.description,
+        createdBy: req.user.id
     });
     try {
         const newCategory = await category.save();
@@ -35,7 +36,7 @@ const createCategory = async(req,res) => {
 
 const getCategories = async(req,res) => {
     try {
-        const categories = await Category.find()
+        const categories = await Category.find({createdBy: req.user.id})
         res.json(categories)
     } catch (error) {
         res.status(500).json({message: error.message})
