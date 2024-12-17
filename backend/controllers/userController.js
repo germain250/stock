@@ -23,9 +23,35 @@ const Register = async(req,res) =>{
             refreshToken: refreshToken
         });
     } catch (error) {
-        res.status(400).json({message: error.message})
+        res.status(400).json({message: "User with that username/email already exist"})
     }
 }
+
+const RegisterUser = async (req, res) => {
+    const { username, email, password, role, userId } = req.body;
+    const hashedPassword = await bcrypt.hash(password,10);  
+    const user = new User({
+      username: username,
+      email: email,
+      password: hashedPassword,
+      role: role,
+      createdBy: userId,
+    });
+  
+    try {
+      const newUser = await user.save();
+      return res.json({
+        message: `${newUser.username} created as ${newUser.role} account`,
+      });
+    } catch (error) {
+      // Handle different cases of errors
+      if (error.message.includes("admin")) {
+        return res.status(403).json({ message: "Only admins can create users" });
+      }
+      return res.status(400).json({ message: "All required fields are needed" });
+    }
+  };
+  
 
 const Login = async (req, res) => {
     const { email, password } = req.body;
@@ -80,7 +106,7 @@ const Logout = async(req,res) =>{
 
 const getAllUsers = async(req,res) =>{
     try{
-        const users = await User.find().select('-password');
+        const users = await User.find({createdBy: req.user.id}).select('-password');
         res.status(200).json(users)
     } catch (err){
         res.status(500).json({message: "Error fetching users"})
@@ -130,5 +156,6 @@ module.exports = {
     getAllUsers,
     updateUser,
     deleteUser,
-    getSingleUser
+    getSingleUser,
+    RegisterUser,
 }

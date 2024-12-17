@@ -127,6 +127,16 @@ export const getStockOverview = async () =>{
         const response = await axios.get("/stock/overview")
         return response.data;
     } catch (error) {
-        console.log(error)        
+        console.log(error.message)        
     }
 }
+
+export const registerUser = async (userData) => {
+    try {
+      await axios.post("/auth/register-worker", userData);
+    } catch (error) {
+      // Rethrow the error with a message for client-side handling
+      throw new Error(error.response?.data?.message || "Failed to register user");
+    }
+  };
+  

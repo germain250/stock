@@ -138,11 +138,11 @@ const ProductForm = () => {
                                 className="w-full"
                                 type="number"
                             />
-                        </div>
-                    </div>
-
+                            
                     <div className="flex justify-end mt-4">
                         <Button type="submit">Save Product</Button>
+                    </div>
+                        </div>
                     </div>
                 </form>
             </FormCard>

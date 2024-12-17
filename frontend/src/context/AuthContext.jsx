@@ -23,7 +23,7 @@ export function AuthProvider({ children }) {
   const login = async ({ email, password }) => {
     const currentUser = await loginUser({ email, password });
     setUser(currentUser);
-    navigate('/admin');
+    navigate('/');
   };
 
   const logout = async () => {
@@ -43,8 +43,7 @@ AuthProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-// Custom hook to access the auth context
-// eslint-disable-next-line react-refresh/only-export-components
+
 export const useAuthContext = () => useContext(AuthContext);
 
 export default AuthContext;

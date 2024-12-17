@@ -4,38 +4,48 @@ const authService = {
     loginUser: async (credentials) => {
         const response = await axios.post('/auth/login', credentials);
         const { user, accessToken, refreshToken } = response.data;
-        
-        localStorage.setItem('user', JSON.stringify(user));
-        localStorage.setItem('accessToken', JSON.stringify(accessToken));
-        localStorage.setItem('refreshToken', JSON.stringify(refreshToken));
-        
+
+        // Use sessionStorage for less persistent storage
+        sessionStorage.setItem('user', JSON.stringify(user));
+        sessionStorage.setItem('accessToken', accessToken); // No JSON.stringify for simple strings
+        sessionStorage.setItem('refreshToken', refreshToken);
+
         return user;
     },
 
     registerUser: async (userData) => {
         const response = await axios.post('/auth/register', userData);
         const user = response.data;
-        localStorage.setItem('user', JSON.stringify(user));
+
+        sessionStorage.setItem('user', JSON.stringify(user));
         return user;
     },
 
     logoutUser: async () => {
-        await axios.post('/auth/logout');
-        
-        localStorage.removeItem('user');
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
+        try {
+            await axios.post('/auth/logout');
+        } catch (error) {
+            console.error('Logout failed:', error);
+        } finally {
+            sessionStorage.clear();
+        }
     },
 
     getCurrentUser: () => {
-        const user = localStorage.getItem('user');
+        const user = sessionStorage.getItem('user');
         return user ? JSON.parse(user) : null;
     },
 
-    getAccessToken: () => localStorage.getItem('accessToken'),
+    getAccessToken: () => sessionStorage.getItem('accessToken'),
 
-    getRefreshToken: () => localStorage.getItem('refreshToken')
+    getRefreshToken: () => sessionStorage.getItem('refreshToken'),
 };
 
 export default authService;
-export const { loginUser, logoutUser, getCurrentUser, getAccessToken, getRefreshToken } = authService;
+export const {
+    loginUser,
+    logoutUser,
+    getCurrentUser,
+    getAccessToken,
+    getRefreshToken,
+} = authService;

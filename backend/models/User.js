@@ -5,6 +5,7 @@ const userSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true, lowercase: true },
     password: { type: String, required: true, minlength: 8 },
     role: { type: String, enum: ['admin', 'stock_manager', 'sales'], default: 'admin' },
+    createdBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: false},
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }
 });

@@ -4,11 +4,19 @@ const accessTokenSecret = 'your-access-token-secret';
 const refreshTokenSecret = 'your-refresh-token-secret';
 
 const generateAccessToken = (user) => {
-    return jwt.sign({ id: user._id, role: user.role }, accessTokenSecret, { expiresIn: '15m' });
+    return jwt.sign(
+        { id: user._id, role: user.role, createdBy: user.createdBy }, 
+        accessTokenSecret, 
+        { expiresIn: '15m' }
+    );
 };
 
 const generateRefreshToken = async (user) => {
-    const refreshToken = jwt.sign({ id: user._id }, refreshTokenSecret, { expiresIn: '7d' });
+    const refreshToken = jwt.sign(
+        { id: user._id, createdBy: user.createdBy }, 
+        refreshTokenSecret, 
+        { expiresIn: '7d' }
+    );
     const tokenDoc = new Token({
         userId: user._id,
         token: refreshToken,
@@ -17,6 +25,7 @@ const generateRefreshToken = async (user) => {
     await tokenDoc.save();
     return refreshToken;
 };
+
 
 const verifyToken = (token, secret) => {
     try {

@@ -10,6 +10,7 @@ const router = express.Router();
 router.post('/login', controller.Login)
 router.post('refresh', controller.refreshToken)
 router.post('/register', controller.Register)
+router.post('/register-worker', controller.RegisterUser, authenticateJWT,authorizeRole(['admin']))
 router.get('/', authenticateJWT, authorizeRole(['admin']),controller.getAllUsers)
 router.delete('/delete/:id', authenticateJWT, controller.deleteUser)
 router.patch('/update/:id', authenticateJWT, controller.updateUser)

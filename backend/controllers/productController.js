@@ -1,5 +1,6 @@
 const Product = require("../models/Product");
 const eventBus = require('../services/eventBus');
+const User = require('../models/User')
 
 
 const getProductByIdMiddleWare = async(req,res, next) => {
@@ -17,12 +18,28 @@ const getProductByIdMiddleWare = async(req,res, next) => {
 }
 const getProducts = async (req, res) => {
     try {
-        const products = await Product.find({createdBy: req.user.id});
-        res.status(201).json(products);
+        let products;
+
+        if (req.user.role === 'admin') {
+            const usersCreatedByAdmin = await User.find({ createdBy: req.user.id }, '_id');
+            const userIds = usersCreatedByAdmin.map(user => user._id.toString());            
+            products = await Product.find({
+                createdBy: { $in: [req.user.id, ...userIds] },
+            });
+        } else {
+            products = await Product.find({
+                createdBy: { $in: [req.user.id, req.user.createdBy] },
+            });
+        }
+
+        res.status(200).json(products);
     } catch (error) {
-        res.status(500).json({ message: error.message });        
+        console.error('Error fetching products:', error);
+        res.status(500).json({ message: error.message });
     }
-}
+};
+
+
 const getProductById = async (req, res) => {
     res.json(res.product);
 }

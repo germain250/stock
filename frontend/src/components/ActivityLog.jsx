@@ -11,16 +11,19 @@ const ActivityLog = () => {
   useEffect(() => {
     const fetchLogs = async () => {
       try {
-        const logsData = await getAllLogs();
+        const logs = await getAllLogs();
         const enrichedLogs = await Promise.all(
-          logsData.map(async (log) => {
+          logs.map(async (log) => {
             try {
-              const userResponse = await axios.get(`http://localhost:3000/auth/user/${log.user}`);
+              // Fetch user details
+              const userResponse = await axios.get(
+                `http://localhost:3000/auth/user/${log.user?._id}`
+              );
               const user = userResponse.data;
               return {
                 id: log._id,
                 icon: getIcon(log.action),
-                message: `${user.username} (${user.role}) - ${log.action}: ${log.details}`,
+                message: `${user.username} (${user.role}) - ${log.action}: ${log.details || "No details provided"}`,
                 time: new Date(log.timestamp).toLocaleString(),
               };
             } catch (userError) {
@@ -28,7 +31,7 @@ const ActivityLog = () => {
               return {
                 id: log._id,
                 icon: getIcon(log.action),
-                message: `${log.action}: ${log.details}`,
+                message: `${log.action}: ${log.details || "No details provided"}`,
                 time: new Date(log.timestamp).toLocaleString(),
               };
             }
@@ -47,7 +50,7 @@ const ActivityLog = () => {
   }, []);
 
   const getIcon = (action) => {
-    switch (action.toLowerCase()) {
+    switch (action?.toLowerCase()) {
       case "added":
         return <FaPlus className="text-green-500" />;
       case "updated":
@@ -63,7 +66,7 @@ const ActivityLog = () => {
   if (error) return <p className="text-red-500">{error}</p>;
 
   return (
-    <div className="bg-white rounded-lg shadow p-4 mt-8 mb-4">
+    <div className="bg-white rounded-lg lg:h-80 overflow-scroll shadow p-4 mt-8 mb-4">
       <h2 className="text-xl font-semibold text-gray-700 mb-4">Activity Log</h2>
       <ul className="space-y-4">
         {logs.map((log) => (

@@ -37,25 +37,25 @@ function AppRouter() {
             <Route path="/error" element={<ErrorPage />} />
             
             <Route path="/" element={
-                <ProtectedRoute allowedRoles={['admin']}>
+                <ProtectedRoute allowedRoles={['admin', 'stock_manager', 'sales']}>
                     <AdminDashboard />
                 </ProtectedRoute>
             } />
 
             <Route path="/stock-manager" element={
-                <ProtectedRoute allowedRoles={['admin', 'stock_manager']}>
+                <ProtectedRoute allowedRoles={['admin', 'stock_manager','sales']}>
                     <StockManagerDashboard />
                 </ProtectedRoute>
             } />
 
             <Route path="/add-product" element={
-                <ProtectedRoute allowedRoles={['admin', 'stock_manager',]}>
+                <ProtectedRoute allowedRoles={['admin', 'stock_manager','sales']}>
                     <AddProduct />
                 </ProtectedRoute>
             } />
 
             <Route path="/sales" element={
-                <ProtectedRoute allowedRoles={['admin', 'sales']}>
+                <ProtectedRoute allowedRoles={['admin', 'stock_manager', 'sales']}>
                     <SalesDashboard />
                 </ProtectedRoute>
             } />

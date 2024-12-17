@@ -52,7 +52,7 @@ eventBus.on('lowStock', async (product) => {
     });
 
     // Emit notification to all connected clients
-    io.emit('notification', notification);
+    io.emit('notification', notification); 
   } catch (error) {
     console.error('Error handling lowStock event:', error);
   }
